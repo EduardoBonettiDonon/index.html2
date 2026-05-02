@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>99 Achievements</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0b1220;
+      color: #e5e7eb;
+      margin: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #111827;
+      padding: 30px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    p {
+      color: #9ca3af;
+    }
+
+    .container {
+      margin-top: 40px;
+    }
+
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      margin: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    .panel {
+      margin: -60px 0 0 1300px;
+      width: 90%;
+      max-width: 500px;
+      background-color: #111827;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: left;
+    }
+
+    .achievement {
+      background-color: #1f2937;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      opacity: 0.5;
+      transition: 0.3s;
+    }
+
+    .achievement.unlocked {
+      opacity: 1;
+      border-left: 4px solid #22c55e;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #22c55e;
+      color: black;
+      padding: 10px 16px;
+      border-radius: 8px;
+      display: none;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Achievements Game</h1>
+  <p>Iniciar</p>
+</header>
+
+<div class="container">
+  <button onclick="clickAction()">Iniciar</button>
+</div>
+
+<div class="panel">
+  <h2>Conquistas</h2>
+  <div id="list"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const allAchievements = [
+    "teste1",
+    "teste3",
+    "teste3"
+  ];
+
+  let unlocked = [];
+
+  function renderAchievements() {
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+
+    allAchievements.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "achievement";
+
+      if (unlocked.includes(item)) {
+        div.classList.add("unlocked");
+      }
+
+      div.textContent = item;
+      list.appendChild(div);
+    });
+  }
+
+  function unlock(text) {
+    if (!unlocked.includes(text)) {
+      unlocked.push(text);
+      showToast("Conquista desbloqueada: " + text);
+      renderAchievements();
+    }
+  }
+
+  function clickAction() {
+    unlock("teste1");
+    unlock("teste2");
+    unlock("teste3");
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.style.display = "block";
+
+    setTimeout(() => {
+      toast.style.display = "none";
+    }, 2000);
+  }
+
+  renderAchievements();
+</script>
+
+</body>
+</html>
